@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "title_enable": true,
+        "title_h1": true,
+        "title_size": 48,
+        "include_image": true,
+        "include_author": true,
+        "include_date": true,
+        "include_newsletter": true,
+        "include_articles": true,
+        "number_of_articles": 3,
+        "include_tags": false,
+        "include_social": true,
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 30,
+        "padding_bottom_mobile": 0,
+        "margin_bottom_mobile": 20,
+        "padding_top_desktop": 30,
+        "padding_bottom_desktop": 0,
+        "margin_bottom_desktop": 40,
+        "padding_border": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

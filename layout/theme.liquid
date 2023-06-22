@@ -1,0 +1,43 @@
+<!doctype html> 
+{%- liquid
+  assign rtl = false
+  assign rtl_list = 'ae,ar,arc,bcc,bqi,ckb,dv,fa,glk,ha,he,kwh,ks,ku,mzn,nqo,pnb,ps,sd,ug,ur,yi'
+  assign iso_code = localization.language.iso_code | split: '-' | first
+  if rtl_list contains iso_code
+    assign rtl = true
+  endif
+-%}
+<html class="no-js" lang="{{ request.locale.iso_code }}" class="fonts-loading"{% if rtl %} dir="rtl"{% endif %}>
+  <head>
+    {%- liquid
+      render 'head'
+      echo content_for_header
+      render 'javascript'
+	-%}
+  </head>
+  <body class="loading{% if rtl %} rtl{% endif %}">    
+    <div id="ajaxBusy"><div class="loader"></div></div>
+    <a href="#content" title="{{ 'layout.general.skipto' | t | escape }}" class="skip-to text-center visually-hidden">{{ 'layout.general.skipto' | t }}</a>
+    {%- liquid
+      render 'noScript'
+      sections 'header-group'
+      sections 'overlay-group'
+	-%}
+    <main id="content" class="content {% if request.page_type != blank %}{{ request.page_type | split: '/' | first | replace: '404', 'error' }}{% else %}default{% endif %}-page{% if template.suffix != blank %} {{ template.suffix | replace: 'quick', 'quick-view' }}{% endif %}{% if request.page_type == 'gift_card' %} wrap{% endif %}" role="main">      
+      {%- liquid
+        echo content_for_layout
+      -%}      
+    </main>
+    {%- sections 'footer-group'	-%}
+
+    <div id="quick-modal" class="modal" aria-hidden="true">
+      <div class="modal-overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal-container shopify-section" role="dialog" aria-modal="true" aria-labelledby="modal" >
+          <div id="modal" class="modal-content"></div>
+          <button class="modal-close" aria-label="{{ 'layout.general.close' | t | escape }}" data-micromodal-close>{%- render 'icons.theme', icon: 'times', size: 18 -%}</button>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

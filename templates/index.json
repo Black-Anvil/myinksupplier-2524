@@ -1,0 +1,185 @@
+{
+  "sections": {
+    "618a9dda-9844-40be-b96b-cb9175fbbd6c": {
+      "type": "section-filter-advanced",
+      "settings": {
+        "title": "Quick Finder",
+        "title_h1": false,
+        "title_size": 36,
+        "sub_title": "Find your product in 3 easy steps",
+        "title_sub_size": 18,
+        "body": "",
+        "section_color": "#353535",
+        "section_color_hover": "",
+        "text_alignment": "text-center",
+        "block_width": "4",
+        "horizontal_content_alignment": "center",
+        "vertical_content_alignment": "middle",
+        "background_img_d": "shopify:\/\/shop_images\/banner_myink_683e1ffa-f136-4de4-95c7-3c98c13d5618.webp",
+        "background_img_m": "shopify:\/\/shop_images\/banner_myink-mobile.webp",
+        "full_width": true,
+        "padding": 50,
+        "background_img_overlay": "",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 0,
+        "form_layout": false,
+        "directory_label": "Select",
+        "directory_label_select": "Select",
+        "input_color": "",
+        "button": "Search",
+        "outline_button": false,
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "margin_bottom_desktop": 0,
+        "padding_border": false
+      }
+    },
+    "741b689d-6752-4877-9370-dfcacf6dd657": {
+      "type": "section-html",
+      "settings": {
+        "feature_1_image": "shopify:\/\/shop_images\/package.png",
+        "feature_1_caption": "FREE SHIPPING",
+        "feature_1_description": "On all orders over $75",
+        "feature_2_image": "shopify:\/\/shop_images\/guarantee.png",
+        "feature_2_caption": "100% SATISFACTION",
+        "feature_2_description": "Prenium quality sevice",
+        "feature_3_image": "shopify:\/\/shop_images\/secure-data.png",
+        "feature_3_caption": "FULLY SECURED",
+        "feature_3_description": "SSL Checkout",
+        "background_color": "#1cb2e5"
+      }
+    },
+    "f33d20e7-9902-4c2c-ad9c-b36b804a6c28": {
+      "type": "section-collections-tabbed",
+      "blocks": {
+        "template--18879729238332__f33d20e7-9902-4c2c-ad9c-b36b804a6c28-1683595113da26847c-0": {
+          "type": "collection",
+          "settings": {
+            "title": "HP",
+            "collection": ""
+          }
+        },
+        "template--18879729238332__f33d20e7-9902-4c2c-ad9c-b36b804a6c28-1683595113da26847c-1": {
+          "type": "collection",
+          "settings": {
+            "title": "BROTHER",
+            "collection": ""
+          }
+        },
+        "template--18879729238332__f33d20e7-9902-4c2c-ad9c-b36b804a6c28-1683595113da26847c-2": {
+          "type": "collection",
+          "settings": {
+            "title": "CANON",
+            "collection": ""
+          }
+        },
+        "template--18879729238332__f33d20e7-9902-4c2c-ad9c-b36b804a6c28-1683595113da26847c-3": {
+          "type": "collection",
+          "settings": {
+            "title": "EPSON",
+            "collection": ""
+          }
+        },
+        "4c8ad87b-2675-4018-bfe5-8470dc108af8": {
+          "type": "collection",
+          "settings": {
+            "title": "LEXMARK",
+            "collection": ""
+          }
+        },
+        "b9971c37-f03b-4edd-ae32-d807e5a4323f": {
+          "type": "collection",
+          "settings": {
+            "title": "XEROX",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--18879729238332__f33d20e7-9902-4c2c-ad9c-b36b804a6c28-1683595113da26847c-0",
+        "template--18879729238332__f33d20e7-9902-4c2c-ad9c-b36b804a6c28-1683595113da26847c-1",
+        "template--18879729238332__f33d20e7-9902-4c2c-ad9c-b36b804a6c28-1683595113da26847c-2",
+        "template--18879729238332__f33d20e7-9902-4c2c-ad9c-b36b804a6c28-1683595113da26847c-3",
+        "4c8ad87b-2675-4018-bfe5-8470dc108af8",
+        "b9971c37-f03b-4edd-ae32-d807e5a4323f"
+      ],
+      "custom_css": [
+        "{color: white;}"
+      ],
+      "settings": {
+        "title": "MOST POPULAR",
+        "title_h1": false,
+        "title_size": 36,
+        "sub_title": "Original Only Printer Ink and Toner Cartridges",
+        "title_sub_size": 18,
+        "section_color": "",
+        "text_alignment": "text-center",
+        "block_width": "8",
+        "horizontal_content_alignment": "center",
+        "vertical_content_alignment": "middle",
+        "full_width": true,
+        "padding": 15,
+        "background_img_overlay": "",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 0,
+        "product_limit": 10,
+        "product_row": 5,
+        "sub_text_alignment": "text-left",
+        "use_slider_link": false,
+        "use_slider": true,
+        "use_slider_color": "",
+        "background": "",
+        "background_gradient": "",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 60,
+        "margin_bottom_desktop": 20,
+        "padding_border": false
+      }
+    },
+    "21390149-b341-41fa-8b0b-e546b9c2af59": {
+      "type": "section-newsletter",
+      "settings": {
+        "title": "Subscribe",
+        "title_h1": false,
+        "title_size": 36,
+        "sub_title": "Save 10% on first purchase using promocode INK10",
+        "title_sub_size": 18,
+        "body": "",
+        "section_color": "rgba(0,0,0,0)",
+        "section_color_hover": "",
+        "text_alignment": "text-center",
+        "block_width": "6",
+        "horizontal_content_alignment": "center",
+        "vertical_content_alignment": "middle",
+        "full_width": true,
+        "padding": 5,
+        "background_img_overlay": "",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 0,
+        "background": "#f7f7f7",
+        "background_gradient": "",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "margin_bottom_mobile": 0,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "margin_bottom_desktop": 0,
+        "padding_border": false
+      }
+    }
+  },
+  "order": [
+    "618a9dda-9844-40be-b96b-cb9175fbbd6c",
+    "741b689d-6752-4877-9370-dfcacf6dd657",
+    "f33d20e7-9902-4c2c-ad9c-b36b804a6c28",
+    "21390149-b341-41fa-8b0b-e546b9c2af59"
+  ]
+}

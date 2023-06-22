@@ -1,0 +1,218 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "aa81c9b9-8cb7-42ba-bfed-7acdab7163ed": {
+          "type": "papertrail",
+          "settings": {
+            "divider": true
+          }
+        },
+        "0023f273-2a02-4adb-ab6e-2c9bb89e572f": {
+          "type": "title",
+          "settings": {
+            "title_h1": true,
+            "title_size": 36,
+            "divider": false
+          }
+        },
+        "76e29077-dc69-49ae-a126-435b2286a03a": {
+          "type": "skuvendor",
+          "settings": {
+            "vendor_enable": true,
+            "sku_enable": true,
+            "divider": false
+          }
+        },
+        "ce4ee419-d474-4eee-9130-6182b1a97679": {
+          "type": "price",
+          "settings": {
+            "divider": false
+          }
+        },
+        "de85c6b9-1cce-42a7-a1e2-db49ebc71c90": {
+          "type": "availability",
+          "settings": {
+            "product_availability_total": 25,
+            "divider": true
+          }
+        },
+        "edffe0bf-b076-40b7-b990-9b40cebb6b30": {
+          "type": "variants",
+          "settings": {
+            "var_length_enable": false,
+            "variant_enable": "color-size-block",
+            "variant_color_enable": "var-img-block",
+            "divider": false
+          }
+        },
+        "6aefb9eb-9252-45f4-97ff-137b832689df": {
+          "type": "quantity",
+          "settings": {
+            "divider": false
+          }
+        },
+        "dcd3fc6c-1d6c-4dec-ba1f-38dd806ed9cc": {
+          "type": "form",
+          "settings": {
+            "smart_enable": true,
+            "gift_enable": true,
+            "divider": false
+          }
+        },
+        "dfc154c9-098b-4868-a65a-27be61a7461d": {
+          "type": "description",
+          "settings": {
+            "divider": false
+          }
+        }
+      },
+      "block_order": [
+        "aa81c9b9-8cb7-42ba-bfed-7acdab7163ed",
+        "0023f273-2a02-4adb-ab6e-2c9bb89e572f",
+        "76e29077-dc69-49ae-a126-435b2286a03a",
+        "ce4ee419-d474-4eee-9130-6182b1a97679",
+        "de85c6b9-1cce-42a7-a1e2-db49ebc71c90",
+        "edffe0bf-b076-40b7-b990-9b40cebb6b30",
+        "6aefb9eb-9252-45f4-97ff-137b832689df",
+        "dcd3fc6c-1d6c-4dec-ba1f-38dd806ed9cc",
+        "dfc154c9-098b-4868-a65a-27be61a7461d"
+      ],
+      "settings": {
+        "full_width": true,
+        "padding": 5,
+        "background_img_overlay": "rgba(0,0,0,0)",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 0,
+        "img_align": true,
+        "zoom_enable": false,
+        "zoom_mobile_enable": false,
+        "loop_enable": false,
+        "centered": false,
+        "go_to_cart_enable": true,
+        "include_social": false,
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 60,
+        "margin_bottom_mobile": 0,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 0,
+        "margin_bottom_desktop": 0,
+        "padding_border": false
+      }
+    },
+    "description": {
+      "type": "main-product-description",
+      "disabled": true,
+      "settings": {
+        "block_width": "8",
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 60,
+        "margin_bottom_desktop": 0,
+        "padding_border": false
+      }
+    },
+    "related": {
+      "type": "main-product-related",
+      "disabled": true,
+      "settings": {
+        "title": "Wear it with",
+        "title_h1": false,
+        "title_size": 36,
+        "sub_title": "",
+        "title_sub_size": 24,
+        "section_color": "rgba(0,0,0,0)",
+        "text_alignment": "text-center",
+        "block_width": "9",
+        "horizontal_content_alignment": "center",
+        "vertical_content_alignment": "middle",
+        "full_width": true,
+        "padding": 5,
+        "background_img_overlay": "rgba(0,0,0,0)",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 0,
+        "product_limit": 5,
+        "product_row": 5,
+        "sub_text_alignment": "text-left",
+        "use_slider_link": false,
+        "use_slider": true,
+        "use_slider_color": "rgba(0,0,0,0)",
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "margin_bottom_mobile": 20,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "margin_bottom_desktop": 40,
+        "padding_border": false
+      }
+    },
+    "recommendations": {
+      "type": "main-product-recommendations",
+      "disabled": true,
+      "settings": {
+        "title": "Frequently purchased with the {{ product.title }}",
+        "title_h1": false,
+        "title_size": 36,
+        "sub_title": "",
+        "title_sub_size": 24,
+        "section_color": "rgba(0,0,0,0)",
+        "text_alignment": "text-center",
+        "block_width": "9",
+        "horizontal_content_alignment": "center",
+        "vertical_content_alignment": "middle",
+        "full_width": true,
+        "padding": 5,
+        "background_img_overlay": "rgba(0,0,0,0)",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 70,
+        "product_limit": 5,
+        "product_row": 5,
+        "sub_text_alignment": "text-left",
+        "use_slider": true,
+        "use_slider_color": "rgba(0,0,0,0)",
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "margin_bottom_mobile": 20,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "margin_bottom_desktop": 40,
+        "padding_border": false
+      }
+    },
+    "pagination": {
+      "type": "main-product-pagination",
+      "disabled": true,
+      "settings": {
+        "title_size": 18,
+        "section_color": "rgba(0,0,0,0)",
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "margin_bottom_mobile": 20,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "margin_bottom_desktop": 40,
+        "padding_border": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "description",
+    "related",
+    "recommendations",
+    "pagination"
+  ]
+}

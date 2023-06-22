@@ -1,0 +1,176 @@
+{
+  "type": "footer",
+  "name": "t:sections.footer.group",
+  "sections": {
+    "d2725e60-20cf-42f5-8643-1cb1178c80e7": {
+      "type": "section-logo-list",
+      "blocks": {
+        "b4f852e2-10a3-4796-bb2d-e252289c4ab0": {
+          "type": "image",
+          "settings": {
+            "block_img": "shopify:\/\/shop_images\/HP-Logo-White_3e42962f-4802-4389-8d42-7dff4cf3afd5.webp",
+            "link": "",
+            "link_new": false,
+            "logo_max_width": 140
+          }
+        },
+        "780ca0f1-c8da-4222-88d7-3cea908eba8f": {
+          "type": "image",
+          "settings": {
+            "block_img": "shopify:\/\/shop_images\/brother-white.webp",
+            "link": "",
+            "link_new": false,
+            "logo_max_width": 140
+          }
+        },
+        "a3382f3f-a85b-4e5f-8ee2-fa54cdb67f6e": {
+          "type": "image",
+          "settings": {
+            "block_img": "shopify:\/\/shop_images\/canon-white.webp",
+            "link": "",
+            "link_new": false,
+            "logo_max_width": 140
+          }
+        },
+        "b03cce08-6c16-4fcf-a9cd-dabb1ad3f339": {
+          "type": "image",
+          "settings": {
+            "block_img": "shopify:\/\/shop_images\/Epson-emblem-removebg-preview.png",
+            "link": "",
+            "link_new": false,
+            "logo_max_width": 140
+          }
+        },
+        "62312776-a902-4fcd-b93b-6502033f01f9": {
+          "type": "image",
+          "settings": {
+            "block_img": "shopify:\/\/shop_images\/lex-white.webp",
+            "link": "",
+            "link_new": false,
+            "logo_max_width": 140
+          }
+        },
+        "d10beb55-0fee-48d2-9a05-be7b23994ed6": {
+          "type": "image",
+          "settings": {
+            "block_img": "shopify:\/\/shop_images\/XEROX-LOGO-White-400px.png",
+            "link": "",
+            "link_new": false,
+            "logo_max_width": 140
+          }
+        }
+      },
+      "block_order": [
+        "b4f852e2-10a3-4796-bb2d-e252289c4ab0",
+        "780ca0f1-c8da-4222-88d7-3cea908eba8f",
+        "a3382f3f-a85b-4e5f-8ee2-fa54cdb67f6e",
+        "b03cce08-6c16-4fcf-a9cd-dabb1ad3f339",
+        "62312776-a902-4fcd-b93b-6502033f01f9",
+        "d10beb55-0fee-48d2-9a05-be7b23994ed6"
+      ],
+      "settings": {
+        "title": "",
+        "title_h1": true,
+        "title_size": 36,
+        "sub_title": "",
+        "title_sub_size": 18,
+        "section_color": "rgba(0,0,0,0)",
+        "text_alignment": "text-center",
+        "product_row": 5,
+        "vertical_content_alignment": true,
+        "use_slider": true,
+        "use_slider_color": "rgba(0,0,0,0)",
+        "background": "#1cb2e5",
+        "background_gradient": "",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 20,
+        "margin_bottom_mobile": 0,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 20,
+        "margin_bottom_desktop": 0,
+        "padding_border": false
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "2de9df51-824f-4716-9d23-e2835489ac5f": {
+          "type": "menu",
+          "settings": {
+            "title": "",
+            "body": "",
+            "text_alignment": "text-left",
+            "enable_open": true,
+            "menu_1_title": "",
+            "menu_1": "my-account",
+            "menu_2_title": "",
+            "menu_2": "",
+            "block_width": "4"
+          }
+        },
+        "108420a3-c061-4b1a-a800-207fd05c515a": {
+          "type": "menu",
+          "settings": {
+            "title": "",
+            "body": "",
+            "text_alignment": "text-left",
+            "enable_open": true,
+            "menu_1_title": "",
+            "menu_1": "footer",
+            "menu_2_title": "",
+            "menu_2": "",
+            "block_width": "4"
+          }
+        },
+        "27f6ba94-93a6-409c-8b35-32173adcd0fa": {
+          "type": "content",
+          "settings": {
+            "title": "",
+            "body": "<p>Monday - Friday <br\/><strong>6h00am - 5h00pm PST<\/strong><\/p><p>Saturday<br\/><strong>7h00am - 3h30pm PST<\/strong><\/p><p>Sunday <br\/><strong>Closed<\/strong><\/p><p><strong>+1 (819) 348-6424<\/strong><\/p><p>2520 Rue King Ouest, Sherbrooke Quebec J1J2E8, Canada<\/p>",
+            "text_alignment": "text-left",
+            "enable_open": false,
+            "block_width": "4"
+          }
+        }
+      },
+      "block_order": [
+        "2de9df51-824f-4716-9d23-e2835489ac5f",
+        "108420a3-c061-4b1a-a800-207fd05c515a",
+        "27f6ba94-93a6-409c-8b35-32173adcd0fa"
+      ],
+      "settings": {
+        "horizontal_content_alignment": true,
+        "section_color": "#ffffff",
+        "section_color_hover": "#1cb2e5",
+        "background": "#353535",
+        "background_gradient": "",
+        "padding_top_mobile": 50,
+        "padding_bottom_mobile": 0,
+        "margin_bottom_mobile": 0,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 0,
+        "margin_bottom_desktop": 0,
+        "padding_border": false,
+        "enable_languages": true,
+        "enable_multiple_currencies": false,
+        "body": "",
+        "display_payments": true,
+        "section_color_sub": "#ffffff",
+        "section_color_sub_hover": "#1cb2e5",
+        "background_sub": "#353535",
+        "background_gradient_sub": "",
+        "padding_top_mobile_sub": 0,
+        "padding_bottom_mobile_sub": 40,
+        "margin_bottom_mobile_sub": 0,
+        "padding_top_desktop_sub": 20,
+        "padding_bottom_desktop_sub": 40,
+        "margin_bottom_desktop_sub": 0,
+        "padding_border_sub": false
+      }
+    }
+  },
+  "order": [
+    "d2725e60-20cf-42f5-8643-1cb1178c80e7",
+    "footer"
+  ]
+}

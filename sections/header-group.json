@@ -1,0 +1,74 @@
+{
+  "type": "header",
+  "name": "t:sections.header.group",
+  "sections": {
+    "header-announcement": {
+      "type": "header-announcement",
+      "settings": {
+        "promo_text": "Save 10% on first purchase using promocode INK10",
+        "promo_size": 16,
+        "text_alignment": "text-left",
+        "promo_link": "",
+        "include_bar_border": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "search_enable": false,
+        "search_enable_pop": false,
+        "cart_icon": "bag",
+        "dropdown_enable": true,
+        "include_checkout_button": true,
+        "enable_languages": true,
+        "enable_multiple_currencies": true,
+        "include_customerbar_border": false,
+        "logo": "shopify:\/\/shop_images\/Logo_1.webp",
+        "logo_max_width": 220,
+        "menu": "main-menu",
+        "menu_size": 18,
+        "menu_alignment": "right",
+        "use_sticky": false,
+        "use_image": true,
+        "use_product_image": true,
+        "include_bar_border": false
+      }
+    },
+    "e280c3b0-0a49-42a5-9df8-da2a6a06e500": {
+      "type": "section-search",
+      "settings": {
+        "title": "",
+        "title_h1": false,
+        "title_size": 12,
+        "sub_title": "",
+        "title_sub_size": 12,
+        "body": "",
+        "section_color": "",
+        "section_color_hover": "",
+        "text_alignment": "text-left",
+        "block_width": "9",
+        "horizontal_content_alignment": "left",
+        "vertical_content_alignment": "top",
+        "full_width": true,
+        "padding": 5,
+        "background_img_overlay": "#1cb2e5",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 0,
+        "background": "#1cb2e5",
+        "background_gradient": "",
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20,
+        "margin_bottom_mobile": 20,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 20,
+        "margin_bottom_desktop": 40,
+        "padding_border": false
+      }
+    }
+  },
+  "order": [
+    "header-announcement",
+    "header",
+    "e280c3b0-0a49-42a5-9df8-da2a6a06e500"
+  ]
+}

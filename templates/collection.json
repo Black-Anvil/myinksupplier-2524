@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "title_enable": false,
+        "text_over": false,
+        "title": "",
+        "title_h1": false,
+        "title_size": 12,
+        "sub_title": "",
+        "title_sub_size": 12,
+        "section_color": "#ffffff",
+        "text_alignment": "text-center",
+        "block_width": "8",
+        "horizontal_content_alignment": "center",
+        "vertical_content_alignment": "middle",
+        "include_image": false,
+        "background_alignment": "center-center",
+        "full_width": false,
+        "padding": 60,
+        "background_img_overlay": "rgba(0,0,0,0)",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 0,
+        "include_sub_collection": false,
+        "use_product_image": false,
+        "image_fit": true,
+        "use_slider": false,
+        "include_description": "above",
+        "include_pagination": true,
+        "include_breadcrumbs": true,
+        "include_sort": true,
+        "layout": "row",
+        "products_per_page": 24,
+        "product_row": 2,
+        "layout_mobile": "rows",
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "margin_bottom_mobile": 0,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "margin_bottom_desktop": 0,
+        "padding_border": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

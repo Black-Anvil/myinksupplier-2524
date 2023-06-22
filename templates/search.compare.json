@@ -1,0 +1,13 @@
+{
+  "layout": false,
+  "sections": {
+    "main": {
+      "type": "main-search-compare",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

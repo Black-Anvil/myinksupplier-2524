@@ -1,0 +1,172 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="{{ settings.accent_color }}">
+<title>{% if request.page_type == '404' %}{{ 'general.404.title' | t }}{% elsif request.page_type == 'password' %}{{ shop.name | escape }}{% if shop.password_message != blank %} {{ shop.password_message }}{% endif %}{% elsif request.page_type == 'gift_card' %}{{ 'gift_cards.issued.title' | t: value: formatted_initial_value_stripped, shop: shop.name | escape }}{% elsif request.page_type == 'search' %}{{ page_title | escape }}{% else %}{{ page_title | escape }}{% if current_tags %}{%- capture meta_tags -%}{%- for tag in current_tags -%}{{ tag | split: '_' | last | prepend: ' ' }}{%- endfor -%}{%- endcapture -%}{{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} | {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% endif %}{% unless page_title contains shop.name or request.page_type == 'password' %} | {{ shop.name | escape }}{% endunless %}</title> 
+{%- if request.page_type == 'gift_card' -%}
+  <meta name="description" content="{{ 'gift_cards.issued.subtext' | t: shop: shop.name | escape }}">
+{%- elsif page_description -%}
+  <meta name="description" content="{{ page_description | escape }}" />
+{%- endif -%}
+<link rel="canonical" href="{{ canonical_url }}" />
+{% if settings.favicon != blank %}<link rel="icon" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" type="image/png">{% endif %}
+
+{%- liquid
+  assign og_title = page_title | default: shop.name | escape
+  assign og_url = canonical_url | default: shop.url
+  assign og_type = 'website'
+  assign og_description = page_description | default: shop.description | default: shop.name | escape
+  if request.page_type == 'product'
+  	assign og_type = 'product'
+  elsif request.page_type == 'article'
+  	assign og_type = 'article'
+  elsif request.page_type == 'collection'
+  	assign og_type = 'product.group'
+  elsif request.page_type == 'password'
+  	assign og_url = shop.url
+  endif
+-%}
+
+<meta property="og:site_name" content="{{ shop.name | escape }}">
+<meta property="og:url" content="{{ og_url }}">
+<meta property="og:title" content="{{ og_title }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:description" content="{{ og_description }}">
+
+{%- if page_image -%}
+<meta property="og:image" content="http:{{ page_image | image_url }}">
+<meta property="og:image:secure_url" content="https:{{ page_image | image_url }}">
+<meta property="og:image:width" content="{{ page_image.width }}">
+<meta property="og:image:height" content="{{ page_image.height }}">
+{%- endif -%}
+
+{%- if request.page_type == 'product' -%}
+<meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
+<meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
+{%- endif -%}
+
+{%- unless settings.social_twitter_link == blank -%}
+<meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
+{%- endunless -%}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title }}">
+<meta name="twitter:description" content="{{ og_description }}">
+
+{% assign header_type = settings.header_type | font_url %}
+{%- if header_type != blank -%}<link rel="preload" href="{{ header_type }}" as="font" type="font/woff2" crossorigin>{% endif %}
+{% assign base_type = settings.base_type | font_url %}
+{%- if base_type != blank -%}<link rel="preload" href="{{ base_type }}" as="font" type="font/woff2" crossorigin>{% endif %}
+    
+{%- render 'cssVariables' -%}
+
+{% style %}
+  *{border:0;margin:0;padding:0;}
+  summary {list-style: none;}
+  summary::-webkit-details-marker {display: none;}
+  audio,canvas,video{display:inline-block}
+  audio:not([controls]){display:none;height:0}
+  [hidden]{display:none}
+  html{font-family:var(--body_font);-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+  abbr[title]{border-bottom:1px dotted}
+  b,strong{font-weight:var(--body_font_weight_bold)}
+  dfn,em{font-style:italic;}
+  em strong{font-style:italic;font-weight:var(--body_font_weight_bold)}
+  hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+  mark{background-color: transparent;color:var(--body_font_color)}
+  code,kbd,pre,samp{font-family:monospace, serif;font-size:var(--small)}
+  pre{white-space:pre-wrap}
+  q{quotes:"\201C" "\201D" "\2018" "\2019"}
+  small{font-size:80%}
+  sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+  sup{top:-0.5em}
+  sub{bottom:-0.25em}
+  svg:not(:root){overflow:hidden}
+  figure{margin:0}
+  fieldset{border:none;margin:0;padding:0}
+  legend{border:0;padding:0}
+  button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}
+  button,input{line-height:normal}
+  button,select{text-transform:none}
+  button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+  button[disabled],html input[disabled]{cursor:no-drop!important}
+  input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+  input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+  input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
+  button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+  textarea{overflow:auto;vertical-align:top}
+  table{border-collapse:collapse;border-spacing:0;display:table;margin:0 0 var(--master_spacing);width:100%}
+  th{font-size:80%}
+  td{border:1px solid var(--line_color);font-size:var(--xx_small);height:calc(var(--xx_small) * 2);padding:calc(var(--master_spacing) / 4);text-align:center;vertical-align:middle}
+  blockquote{color:var(--a11ygrey);font-style:italic;font-weight:var(--body_font_weight_medium);font-size:var(--small);line-height:calc(var(--small) * 1.25);font-family:var(--body_font);border-left:3px solid var(--line_color);padding-left:var(--base);margin-bottom:calc(var(--base) + var(--base) / 4);margin-left:0px}
+  .clearfix {zoom:1;}
+  .clearfix:before,
+  .clearfix:after {content:'';display:table;}
+  .clearfix:after {clear:both;}
+  html {color:var(--body_font_color);font-size:var(--small);font-style:var(--body_font_style);font-weight:var(--body_font_weight);line-height:calc(var(--small) * 1.25);font-family:var(--body_font);scroll-behavior: smooth;-webkit-text-size-adjust: 100%;-moz-text-size-adjust: 100%;text-size-adjust: 100%;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+  body {background:var(--background);margin:0;padding: 0;overflow-x: hidden;overflow-y: scroll;}
+  img.desktop-image {display:block;}
+  img.mobile-image {display:none;}
+  @media only screen and (max-width: 600px) {img.desktop-image {display:none;}img.mobile-image {display:block;}}
+  summary::-webkit-details-marker {display: none;}
+  .container {margin:0 auto;max-width:1200px;padding: 0 var(--master_spacing);}
+  .container.half-pad {padding-left: calc(var(--master_spacing) / 2);padding-right: calc(var(--master_spacing) / 2);}
+  .container.full {max-width:1600px;}
+  .one,.two,.two-half,.three,.four,.five,.six,.seven,.eight,.nine,.ten,.eleven,.twelve{float:left;padding:0 calc(var(--master_spacing) / 2);box-sizing: border-box;}
+  .one {width:8.33%;}		/* 100px / 1200 */
+  .two {width:16.66%;}		/* 200px */
+  .two-half {width:20%;}	/* 250px */
+  @media only screen and (max-width: 768px) {.purchase-section .two-half {width:33.33%}}
+  .three {width:25%;}		/* 300px */
+  .four {width:33.33%;}		/* 400px */
+  .five {width:41.66%;}		/* 500px */
+  .six {width:50%;}			/* 600px */
+  .seven {width:58.33%;}	/* 700px */	
+  .eight {width:66.66%;}	/* 800px */
+  .nine {width:75%;}		/* 900px */
+  .ten {width:83.33%;}		/* 1000px */
+  .eleven {width:91.66%;}	/* 1100px */
+  .twelve {width:100%;}		/* 1200px */
+  @media only screen and (max-width: 600px) {.one:not(.mobile),.two:not(.mobile),.two-half:not(.mobile),.purchase-section .two-half:not(.mobile),.three:not(.mobile),.four:not(.mobile),.five:not(.mobile),.six:not(.mobile),.seven:not(.mobile),.eight:not(.mobile),.nine:not(.mobile),.ten:not(.mobile),.eleven:not(.mobile),.twelve:not(.mobile){width:100%;}}
+  p {color:var(--body_font_color);font-size:var(--small);padding:0 0 calc(var(--small) * 1.25);}
+  a {text-decoration:none;color:var(--body_font_color);}
+  img {border: 0;display: block;height: auto;margin: 0 auto calc(var(--master_spacing) / 2);max-width: 100%;vertical-align: bottom;}
+  img.lazyload {width: 100%;}
+  .header {opacity: 0;}
+  @media only screen and (max-width: 600px) {.responsiveMenu {display:none;}.loading .open-container.desktop details[open] + .open-slide > *:first-child {animation: none;margin-top: calc(-100% + -100vh);transform: translate(0,-100%);transition:none;}}
+  .header-announcement,.header-customerbar {font-family:var(--body_font);font-size:var(--xx_small);font-weight:var(--body_font_weight_medium);line-height:calc(var(--xx_small) * 1.25);padding:calc(var(--master_spacing) / 2) 0;}
+  .header-announcement p, .header-customerbar p {font-size:var(--xx_small);padding:0;}
+  .header-announcement.include-border, .header-customerbar.include-border {border-bottom:1px solid var(--line_color);}
+  .header-navigation .cartCountSelector {background:var(--header_background_color);display:inline-table;font-family: Arial;font-size:10px;height:12px;left:50%;line-height:12px;margin-top: 2px;position: absolute;text-align:center;top:50%;-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}
+  .header-navigation .cartCountSelector.cart-icon {margin-left:1px;margin-top:-5px;}
+  @media only screen and (max-width: 480px) {.header-navigation .cartCountSelector {height:8px;line-height:8px;}}
+  .parent-level {display:inline-table}
+  .parent-level a {padding: 0 calc(var(--master_spacing) / 2)}
+  .relative {position:relative;}
+  .hidden {display:none;}
+  .visually-hidden {clip: rect(0 0 0 0);clip-path: inset(50%);height: 1px;overflow: hidden;position: absolute;white-space: nowrap;width: 1px;}
+  .visually-hidden .visually-hidden-links {display: inline-table;font-size: var(--parent_link);padding:0 calc(var(--master_spacing) / 2);}
+  .logo {display: block;white-space: normal;}
+  .glider.thumbnails {margin: 0 calc(-1 * var(--master_spacing) / 2) var(--master_spacing);}
+  .glider .product:not(.ignore) .product-thumb,.glider.thumbnails .image,.glider .product,.glider .glider-slide[data-glider="unloaded"] {opacity:0.001;}
+{% endstyle %}
+
+{{ 'styles.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'styles.header.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'styles.accessories.css' | asset_url | stylesheet_tag }}
+
+<noscript><style>
+  html.no-js {scroll-behavior: unset;}
+  body{margin-bottom:50px;}
+  .no-js article, .no-js aside, .no-js details, .no-js figcaption, .no-js figure, .no-js footer, .no-js header, .no-js hgroup, .no-js main, .no-js nav, .no-js section, .no-js summary {display: block;}
+  .no-js #ajaxBusy {display: none;}
+  .no-js .header {opacity: 1;transition: opacity .5s ease 0s;backface-visibility: hidden;}
+  .header-navigation nav .responsiveMenu li:hover > ul {height: auto;opacity: 1;visibility: visible;}
+  img.js.lazyload,.no-js .glider-pagination,.no-js .purchase-section .selectors,.no-js .qtybtn {display:none!important;}
+  .no-js .lazycontainer:not(.ignore):not(.lazyskip):after {content:none;}
+  .no-js .glider-slide {height:auto;}
+  .no-js .glider .product .product-thumb,.no-js .glider .product,.no-js .glider.thumbnails .image,.no-js .glider .glider-slide[data-glider="unloaded"] {opacity: 1;visibility: visible;}
+  .no-js .open-container.desktop > details {display:block;}
+  .no-js .tab-body.hide {height: auto;visibility: visible;}
+  .no-js.hidden {display:block;}
+  .no-js .product-gift.open-container details:not([open])+.open-slide>*:first-child {margin-top: 0;max-height: none;transform: none;visibility: visible;}
+</style></noscript>

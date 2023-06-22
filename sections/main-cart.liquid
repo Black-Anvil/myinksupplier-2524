@@ -1,0 +1,774 @@
+{%- liquid
+  assign full_width = section.settings.full_width
+  if section.settings.background_img != blank
+    capture alt
+      if section.settings.background_img.alt != blank
+        echo section.settings.background_img.alt
+      elsif section.settings.title != blank
+        echo section.settings.title
+      else
+        echo 'cart.general.intro_html' | t
+      endif
+    endcapture  
+  endif
+  assign text_color = false
+  if section.settings.section_color != 'rgba(0,0,0,0)' and section.settings.section_color != blank
+    assign text_color = true
+    assign text_color_section = section.settings.section_color
+  endif
+  assign background_color = false
+  if section.settings.background != 'rgba(0,0,0,0)' and section.settings.background != blank
+    assign background_color = true
+    assign background_color_section = section.settings.background
+  endif    
+  if section.settings.background_gradient != 'rgba(0,0,0,0)' and section.settings.background_gradient != blank
+    assign background_color = true
+    assign background_color_section = section.settings.background_gradient
+  endif
+  capture classes
+    echo 'dynamic-section dynamic-section-'
+    echo section.id 
+    echo ' section-padding-top section-padding-bottom section-margin-bottom '
+    if section.settings.padding_border
+      echo 'section-border '
+    endif
+  endcapture
+  assign overlay_color = false
+  if section.settings.background_img_overlay != 'rgba(0,0,0,0)' and section.settings.background_img_overlay != blank
+    assign overlay_color = true
+    assign overlay_color_section = section.settings.background_img_overlay
+  endif
+  if section.settings.background_img_overlay_gradient != 'rgba(0,0,0,0)' and section.settings.background_img_overlay_gradient != blank
+    assign overlay_color = true
+    assign overlay_color_section = section.settings.background_img_overlay_gradient
+  endif
+  assign banner = false
+  if section.settings.cart_terms_enable and section.settings.cart_terms != blank
+  	assign checkbox = true
+  else
+  	assign checkbox = false
+  endif
+-%}
+
+{% style %}
+  .dynamic-section-{{ section.id }} { 
+    --margin_padding: {{ section.settings.padding }}vh;
+    {%- if background_color -%}
+    --background:{{ background_color_section }};
+    --button_primary_text:{{ background_color_section }};
+    --button_secondary_hover:{{ background_color_section }};
+    {%- endif -%}
+    --section-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --section-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --section-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --section-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --section-margin-bottom-mobile: {{ section.settings.margin_bottom_mobile }}px;
+    --section-margin-bottom-desktop: {{ section.settings.margin_bottom_desktop }}px;
+  }
+  .dynamic-section-{{ section.id }} .banner-section { 
+    {%- if text_color -%}
+    --headline_font_color:{{ text_color_section }};
+    {%- endif -%}
+    {%- if overlay_color -%}
+    --overlay_background: {{ overlay_color_section }};
+    --overlay_opacity: {{ '100' | minus: section.settings.background_img_overlay_opacity | times: 0.01 }};
+    {%- endif -%}
+  }
+{% endstyle %}
+
+<section data-section-id="{{ section.id }}" 
+         data-section-type="cart_page" 
+         data-check="{{ checkbox }}"
+         data-recent="{{ section.settings.recently_viewed }}"
+         class="{{ classes }}{% if settings.animation_enable %}animate-section-div {% endif %}clearfix">
+  
+  <div id="cart-table">
+    <div class="full-form form{% unless cart.item_count > 0 %} hidden{% endunless %}">     
+      <form action="{{ routes.cart_url }}" method="post" id="cart">
+        
+        {%- liquid
+          assign block_width = section.settings.block_width
+          case block_width
+            when '4'
+              assign block_width = 'four'
+            when '6'
+              assign block_width = 'six'
+            when '8'
+              assign block_width = 'eight'
+            when '9'
+              assign block_width = 'nine'
+          endcase
+        -%}
+        <div class="banner-section {% if full_width %}bottompad-half {% if section.settings.background_img != blank or overlay_color %}relative {% if section.settings.background_img != blank %}lazycontainer lazyignore {% endif %}{% if overlay_color %}background-overlay {% endif %}{% endif %}{% endif %}clearfix">
+          {%- liquid
+            if full_width and section.settings.background_img != blank
+              assign banner = true
+              render 'image.load', img_src: section.settings.background_img, size: section.settings.background_img.width, alt: alt, background: true, lazyignore: true
+            endif
+          -%}
+          <div class="relative container{% if full_width %} half-pad{% else %} {% if section.settings.background_img != blank or overlay_color %}inner-container{% else %}half-pad{% endif %}{% endif %}{% if settings.animation_enable %} animate-section load{% endif %} clearfix">
+            <div class="{% if full_width == false %}{% if section.settings.background_img != blank or overlay_color %}inner-container-pad relative {% if section.settings.background_img != blank %}lazycontainer lazyignore {% endif %}{% if overlay_color %}background-overlay {% endif %}{% endif %}{% endif %}clearfix">
+              {%- liquid
+                if full_width == false and section.settings.background_img != blank
+                  assign banner = true
+                  render 'image.load', img_src: section.settings.background_img, size: section.settings.background_img.width, alt: alt, background: true, lazyignore: true
+                endif
+              -%}
+              <div class="relative table content-height">
+                <div class="table-cell {{ section.settings.vertical_content_alignment }}">
+                  <div class="{{ block_width }} animate {{ section.settings.text_alignment }} {{ section.settings.horizontal_content_alignment }} section-height clearfix">
+                    {%- liquid
+                      if section.settings.title_h1
+                        assign title = 1
+                      else
+                        assign title = 2
+                      endif
+                    -%}
+                    {% if section.settings.title_enable %}<h{{ title }} class="section-title-{{ section.settings.title_size }}">{% if section.settings.title != blank%}{{ section.settings.title | escape }}{% else %}{{ 'cart.general.intro_html' | t }}{% endif %}</h{{ title }}>{% if overlay_color %}{%- assign banner = true -%}{% endif %}{% endif %}
+                    {% if section.settings.sub_title != blank %}<h3 class="section-title-{{ section.settings.title_sub_size }}">{{ section.settings.sub_title | escape }}</h3>{% if overlay_color %}{%- assign banner = true -%}{% endif %}{% endif %}          
+                    <div id="total-top" class="cart-options clearfix">
+                      <h3>{{ 'cart.general.carttotal_html' | t }}<span class="price-preview price price-field"><span id="total-cart-top">{% if settings.currency_enable %}{{ cart.total_price | money_with_currency }}{% else %}{{ cart.total_price | money }}{% endif %}</span></span></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      
+        <div class="container {% if banner %}inner-container {% else %}half-pad {% endif %}{% if settings.animation_enable %}animate-section animate-section-margin load {% endif %}clearfix">
+          <div{% if banner %}{% unless full_width %} class="inner-container-grid"{% endunless %}{% endif %}>
+            <div class="{% if banner %}background-white {% endif %}clearfix">
+      
+              <div class="cart-table-header twelve bottompad-half clearfix">
+                <div class="five left">
+                  <h4 class="item">{{ 'cart.general.item' | t }}</h4>
+                </div>
+                <div class="two left">
+                  <h4>{{ 'cart.general.item_price' | t }}</h4>
+                </div>
+                <div class="three left text-center">
+                  <h4>{{ 'cart.general.item_quantity' | t }}</h4>
+                </div>
+                <div class="two left">
+                  <h4>{{ 'cart.general.item_total' | t }}</h4>
+                </div>  
+              </div>
+      
+              <div class="cart-table bottompad"> 
+                {% for line_item in cart.items %} 
+                {%- assign line_item_id = line_item.key -%}
+                <div id="product-id-{{ line_item_id }}" class="item relative product-id item-row table-center clearfix" data-product-id="{{ line_item_id }}">
+                  
+                  {%- liquid
+                    if line_item.variant.featured_media
+                      assign line_item_featured_media = line_item.variant.featured_media.preview_image
+                    elsif line_item.product.featured_media
+                      assign line_item_featured_media = line_item.product.featured_media.preview_image
+                    else
+                      assign line_item_featured_media = false
+                    endif
+                  -%}
+      
+                  {% if line_item_featured_media or settings.badge_enable and line_item.line_level_discount_allocations != blank or settings.badge_enable and line_item.variant.compare_at_price > line_item.original_price %}
+                  <div class="two item-thumb title-align title-align-left">  
+                    <div class="relative ignore">
+                      {% if settings.badge_enable %}
+                      {% if line_item.line_level_discount_allocations != blank or line_item.variant.compare_at_price > line_item.original_price %}
+                      <div class="badge"><span class="badge-total">{{ 'products.product.savings' | t }}<br/>
+                        {%- liquid
+                          if line_item.line_level_discount_allocations != blank
+                            if settings.badge_percentage_enable
+                              echo line_item.original_line_price | minus: line_item.final_line_price | times: 100 | divided_by: line_item.original_line_price | append: '%'
+                            else
+                              echo line_item.original_line_price | minus: line_item.final_line_price | money_without_trailing_zeros
+                            endif
+                          elsif line_item.variant.compare_at_price > line_item.original_price
+                            if settings.badge_percentage_enable
+                              echo line_item.variant.compare_at_price | minus: line_item.original_price | times: 100 | divided_by: line_item.variant.compare_at_price | append: '%'
+                            else
+                              echo line_item.variant.compare_at_price | times: line_item.quantity | minus: line_item.original_line_price | money_without_trailing_zeros
+                            endif
+                          endif
+                        -%}
+                        </span></div>                      
+                      {% endif %}
+                      {% endif %}
+                      {% if line_item_featured_media %}
+                      <div class="relative lazycontainer">
+                        <a href="{{ line_item.variant.url | within: collections.all }}" title="{{ line_item.title | escape }}" class="img-align keyed">
+                          {%- liquid
+                          capture alt
+                            echo line_item.variant.title
+                            echo ' '
+                            echo line_item.title
+                          endcapture
+                          render 'image.load', img_src: line_item_featured_media, size: 320, alt: alt, nopad: true
+                        -%}
+                        </a>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% endif %}
+                  <span class="item-details{% if line_item_featured_media or settings.badge_enable and line_item.line_level_discount_allocations != blank or settings.badge_enable and line_item.variant.compare_at_price > line_item.original_price %} half{% else %} full{% endif %} table-center">
+                    <div class="{% if line_item_featured_media or settings.badge_enable and line_item.line_level_discount_allocations != blank or settings.badge_enable and line_item.variant.compare_at_price > line_item.original_price %}three{% else %}five{% endif %}">
+                      <div class="item-title"><h4><a href="{{ line_item.variant.url | within: collections.all }}" title="{{ line_item.title | escape }}">{{ line_item.product.title }}</a></h4></div>
+      
+                      {%- liquid
+                        if settings.reviews_enable
+                          render 'product.rating', product: line_item.product
+                        endif
+                      -%}
+      
+                      {% unless line_item.variant.title == 'Default Title' %}<h6><span class="variants">{{ line_item.variant.title }}</span></h6>{% endunless %}
+      
+                      {% if line_item.selling_plan_allocation %} 
+                      <h6 class="selling"><small>{{ line_item.selling_plan_allocation.selling_plan.name }}</small></h6>
+                      {% endif %}
+                      
+                      {%- liquid
+                        assign property_size = line_item.properties | size
+                        if property_size > 0
+                          echo '<h6 class="selling word-break"><small>'
+                          for p in line_item.properties
+                            assign property_first_char = p.first | slice: 0
+                            if p.last != blank and property_first_char != '_'
+                              echo '<strong>'
+                              echo p.first
+                              echo ':</strong> '
+                              if p.last contains '/uploads/'
+                                echo '<a href="'
+                                echo p.last
+                                echo '">'
+                                echo p.last | split: '/' | last
+                                echo '</a>'
+                              else
+                                echo p.last
+                              endif
+                              unless forloop.last
+                                echo '<br/>'
+                              endunless
+                            endif
+                          endfor
+                          echo '</small></h6>'
+                        endif
+                      -%}
+      
+                    </div>
+                    
+                    <div class="two">
+                      <h5 class="offers">
+                        <span class="price-preview price price-field">
+                          {%- liquid
+                            if line_item.original_price != line_item.final_price
+                              if line_item.final_price > 0
+                                if settings.currency_enable
+                                  echo line_item.final_price | money_with_currency
+                                else
+                                  echo line_item.final_price | money
+                                endif
+                              else
+                                echo 'cart.general.free' | t
+                              endif
+                              if line_item.original_price > 0
+                                if settings.currency_enable
+                                  echo line_item.original_price | money_with_currency | prepend: ' <del>' | append: '</del>'
+                                else
+                                  echo line_item.original_price | money | prepend: ' <del>' | append: '</del>'
+                                endif
+                              else
+                                echo 'cart.general.free' | t | prepend: ' <del>' | append: '</del>'
+                              endif
+                            else
+                              if line_item.original_price > 0
+                                if settings.currency_enable
+                                  echo line_item.original_price | money_with_currency
+                                else
+                                  echo line_item.original_price | money
+                                endif
+                                if line_item.variant.compare_at_price > line_item.original_price
+                                  if settings.currency_enable
+                                    echo line_item.variant.compare_at_price | money_with_currency | prepend: ' <del>' | append: '</del>'
+                                  else
+                                    echo line_item.variant.compare_at_price | money | prepend: ' <del>' | append: '</del>'
+                                  endif                                      
+                                else
+                                  echo 'cart.general.each' | t | prepend: ' '
+                                endif
+                              else
+                                echo 'cart.general.free' | t | prepend: ' '
+                              endif
+                            endif
+                          -%}
+                        </span>
+                        {%- render 'product.unitPrice', variant: line_item -%}
+                      </h5>
+                      {% if line_item.line_level_discount_allocations != blank %}
+                      <p><small>{% for discount_allocation in line_item.line_level_discount_allocations %}<span>{{ discount_allocation.discount_application.title }}: </span><span class="discount-amt">{% if settings.currency_enable %}{{ discount_allocation.amount | money_with_currency | prepend: '-' }}{% else %}{{ discount_allocation.amount | money | prepend: '-' }}{% endif %}</span><br/>{% endfor %}</small></p>
+                      {% endif %}                          
+                    </div>
+                    <div class="three text-center">
+                      <span class="quantity form">
+                        <button type="button" class="icon icon-minus btn qtybtn ignore qtyminus_multi text-center" field="updates_{{ line_item_id }}" aria-label="{{ 'products.general.minus' | t | escape }}">{%- render 'icons.theme', icon: 'minus', size: 28 -%}</button>
+                        <label for="updates_{{ line_item_id }}" class="visually-hidden">{{ 'products.general.quantity' | t }}</label>
+                        <input name="updates[]" type="number" inputmode="numeric" pattern="[0-9]*" value="{{ line_item.quantity }}" min="0"{% if line_item.variant.inventory_management and line_item.variant.inventory_policy != 'continue' %} max="{{ line_item.variant.inventory_quantity }}"{% endif %} class="quantity item-qty text-center" field="error_{{ line_item_id }}" id="updates_{{ line_item_id }}" />                   
+                        <button type="button" class="icon icon-plus btn qtybtn ignore qtyplus_multi text-center" field="updates_{{ line_item_id }}" aria-label="{{ 'products.general.plus' | t | escape }}">{%- render 'icons.theme', icon: 'plus', size: 28 -%}</button>
+                        <label class="stock error hidden" id="error_{{ line_item_id }}">.</label>
+                      </span>
+                      {% if section.settings.remove_enable %}<button type="button" class="remove_item_multi qtybtn" field="updates_{{ line_item_id }}" aria-label="{{ 'cart.general.remove' | t | escape }}">{{ 'cart.general.remove' | t }}</button>{% endif %}
+                    </div>
+                    <div class="two">
+                      <h5><span class="total-item-hidden hidden">{{ 'cart.general.carttotal' | t }}</span>{% if line_item.original_line_price != line_item.final_line_price %}<span class="total-item total-discount-item">{% if settings.currency_enable %}{{ line_item.final_line_price | money_with_currency }}{% else %}{{ line_item.final_line_price | money }}{% endif %} <del>{% if settings.currency_enable %}{{ line_item.original_line_price | money_with_currency }}{% else %}{{ line_item.original_line_price | money }}{% endif %}</del></span>{% else %}<span class="total-item total{% if line_item.variant.compare_at_price > line_item.original_price %}-sale{% else %}-price{% endif %}-item"{% if line_item.variant.compare_at_price > line_item.original_price %} data-sale="{{ line_item.variant.compare_at_price }}"{% endif %}>{% if settings.currency_enable %}{{ line_item.original_line_price | money_with_currency }}{% else %}{{ line_item.original_line_price | money }}{% endif %}{%- if line_item.variant.compare_at_price > line_item.original_price -%}&nbsp;<del>{% if settings.currency_enable %}{{ line_item.variant.compare_at_price | times: line_item.quantity | money_with_currency }}{% else %}{{ line_item.variant.compare_at_price | times: line_item.quantity | money }}{% endif %}</del>{%- endif -%}</span>{% endif %}</h5>
+                    </div>
+                  </span>
+                </div> 
+                {% endfor %}       
+              </div>
+      
+              <div class="cart-options text-center">
+                {% if section.blocks.size > 0 %}
+                  <div class="six center clearfix">
+                    {% for block in section.blocks %}
+                      <span class="form">
+                        <span>
+                          <label for="{{ block.settings.title | handleize }}-{{ block.id }}" class="visually-hidden">{{ block.settings.title }}</label>                          
+                          <input id="{{ block.settings.title | handleize }}-{{ block.id }}" type="text" name="attributes[{{ block.settings.title | escape }}]" placeholder="{{ block.settings.title | escape }}">
+                        </span>
+                      </span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                {% if section.settings.cart_notes_enable %}
+                <div class="six center clearfix">
+                  <span class="form">
+                    <span>
+                      <label for="CartSpecialInstructions" class="visually-hidden">{{ 'cart.general.note' | t }}</label>
+                      <textarea name="note" class="input-full" id="CartSpecialInstructions" placeholder="{{ 'cart.general.note' | t | escape }}">{{ cart.note }}</textarea>
+                    </span>
+                  </span>
+                </div>
+                {% endif %}
+                <div class="twelve table-center">
+                  <table id="total-bottom" border="0" cellspacing="0" cellpadding="0">
+                    {% if cart.cart_level_discount_applications.size > 0 %}
+                    <tr class="table-border-top"><td class="text-right"><p>{{ 'cart.general.subtotal' | t }}</p></td><td class="text-left price-preview price price-field"><p><span id="cart-total">{% if settings.currency_enable %}{{ cart.original_total_price | money_with_currency }}{% else %}{{ cart.original_total_price | money }}{% endif %}</span></p></td></tr>
+                    <tr class="table-border-bottom"><td class="text-right">{% if cart.cart_level_discount_applications.size > 1 %}{{ 'cart.general.discounts' | t }}{% else %}{{ 'cart.general.discount' | t }}{% endif %}&nbsp;</td><td>&nbsp;</td></tr>
+                    {% for discount_application in cart.cart_level_discount_applications %}
+                    <tr><td class="text-right"><h5>{{ discount_application.title }}:</h5></td><td class="text-left"><h5><span id="discount-cart-{{ discount_application.title | handleize }}" class="discount-cart">-{% if settings.currency_enable %}{{ discount_application.total_allocated_amount | money_with_currency }}{% else %}{{ discount_application.total_allocated_amount | money }}{% endif %}</span></h5></td></tr>
+                    {% endfor %}
+                    {% endif %}
+                    <tr><td class="text-right"><h3>{{ 'cart.general.carttotal_html' | t }}</h3></td><td class="text-left price-preview price price-field"><h3><span id="total-cart-bottom">{% if settings.currency_enable %}{{ cart.total_price | money_with_currency }}{% else %}{{ cart.total_price | money }}{% endif %}</span></h3></td></tr>
+                  </table>
+                  {% if checkbox %}                      
+                  <span class="form nopad radiobox center">
+                    <p>
+                      <span>
+                        <label for="cart-terms" class="visually-hidden">{{ section.settings.cart_terms | strip_html | escape }}</label>
+                        <input type="checkbox" id="cart-terms" title="{{ section.settings.cart_terms | strip_html | escape }}" required> <span class="cart">{{ section.settings.cart_terms | remove: '<p>' | remove: '</p>' }}</span>
+                      </span>
+                    </p>
+                  </span>
+                  {% endif %}
+                  <noscript>
+                    <div class="clearfix bottompad-quarter"><button type="submit" class="btn outline" aria-label="{{ 'cart.general.update' | t | escape }}">{{ 'cart.general.update' | t }}</button></div>
+                  </noscript>
+                  <div class="clearfix bottompad-{% if additional_checkout_buttons %}quarter{% else %}half{% endif %}"><button type="submit" name="checkout" class="btn{% if checkbox %} outline{% endif %}"{% if checkbox %} disabled{% endif %} aria-label="{% if checkbox %}{{ 'cart.general.agree' | t | escape }}{% else %}{{ 'cart.general.checkout' | t | escape }}{% endif %}">{% if checkbox %}{{ 'cart.general.agree' | t }}{% else %}{{ 'cart.general.checkout' | t }}{% endif %}</button></div>
+                  {% unless checkbox %}
+                  {% if additional_checkout_buttons %}
+                  <div class="additional-checkout-buttons clearfix bottompad-quarter">
+                    {{ content_for_additional_checkout_buttons }}
+                  </div>
+                  {% endif %}
+                  {% endunless %}
+                  {% capture cart_msg %}
+                  {% if shop.taxes_included or shop.shipping_policy.body != blank %}
+                  {%- if shop.taxes_included -%}{{ 'cart.general.include_taxes' | t }}{%- endif -%}
+                  {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}<span class="separator" aria-hidden="true"></span>{%- endif -%}
+                  {%- if shop.shipping_policy.body != blank -%}{{ 'cart.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}{%- endif -%}
+                  {% else %}
+                  {{ 'cart.general.total_msg' | t }}
+                  {% endif %}
+                  {% endcapture %}                      
+                  <div class="clearfix"><p><small>{{ cart_msg }}</small></p></div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+
+    <div class="empty-form{% if cart.item_count > 0 %} hidden{% endif %} banner-section {% if full_width %}bottompad-half {% if section.settings.background_img != blank or overlay_color %}relative {% if section.settings.background_img != blank %}lazycontainer lazyignore {% endif %}{% if overlay_color %}background-overlay {% endif %}{% endif %}{% endif %}clearfix">
+      {%- liquid
+        if full_width and section.settings.background_img != blank
+          assign banner = true
+          render 'image.load', img_src: section.settings.background_img, size: section.settings.background_img.width, alt: alt, background: true, lazyignore: true
+        endif
+      -%}
+      <div class="relative container{% if full_width %} half-pad{% else %} {% if section.settings.background_img != blank or overlay_color %}inner-container{% else %}half-pad{% endif %}{% endif %}{% if settings.animation_enable %} animate-section load{% endif %} clearfix">
+        <div class="{% if full_width == false %}{% if section.settings.background_img != blank or overlay_color %}inner-container-pad relative {% if section.settings.background_img != blank %}lazycontainer lazyignore {% endif %}{% if overlay_color %}background-overlay {% endif %}{% endif %}{% endif %}clearfix">
+          {%- liquid
+            if full_width == false and section.settings.background_img != blank
+              assign banner = true
+              render 'image.load', img_src: section.settings.background_img, size: section.settings.background_img.width, alt: alt, background: true, lazyignore: true
+            endif
+          -%}
+          <div class="relative table content-height">
+            <div class="table-cell {{ section.settings.vertical_content_alignment }}">
+              <div class="{{ block_width }} animate {{ section.settings.text_alignment }} {{ section.settings.horizontal_content_alignment }} clearfix">
+                <h2 class="section-title-{{ section.settings.title_size }}">{{ 'cart.general.empty' | t }}</h1>
+                <p><a href="{{ routes.all_products_collection_url }}" title="{{ 'cart.general.continue_browsing' | t }}" class="btn toppad">{{ 'cart.general.continue_browsing' | t }}</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if section.settings.recently_viewed %}
+      <div id="recently-viewed" class="hidden"><div class="container half-pad{% if settings.animation_enable %} animate-section animate-section-margin load{% endif %} clearfix">
+        <div class="tab-body">
+          <div class="twelve text-center toppad bottompad-half"><h2>{{ 'cart.general.recently_viewed' | t }}</h2></div>
+          <div class="recently-viewed table-center text-center clearfix">
+            <div id="recently-viewed-placeholder" class="glider clearfix">
+              {%- liquid
+                for i in (1..5) limit: limit
+                  capture current
+                    cycle 1, 2, 3, 4, 5, 6
+                  endcapture
+                  render 'product.loop.onboarding', block_width: 'two-half', forloop_index0: forloop.index0, current: current
+                endfor
+              -%}
+            </div>
+          </div>
+        </div>
+      </div></div>
+    {% endif %}
+    
+  </div>
+  
+</section>
+
+{% schema %}
+  {
+    "name": "t:sections.cart.name", 
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:sections.banner.label"
+      },
+      {
+        "id": "title_enable",
+        "type": "checkbox",
+        "label": "t:sections.heading.show_heading",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "t:sections.heading.label"
+      },
+      {
+        "id": "title_h1",
+        "type": "checkbox",
+        "label": "t:sections.heading.heading_one",
+        "default": true
+      },
+      {
+        "id": "title_size",
+        "type": "range",
+        "label": "t:sections.heading.heading_size",
+        "min": 12,
+        "max": 96,
+        "step": 6,
+        "unit": "px",
+        "default": 48
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "t:sections.subheading.label"
+      },
+      {
+        "id": "title_sub_size",
+        "type": "range",
+        "label": "t:sections.subheading.subheading_size",
+        "min": 12,
+        "max": 96,
+        "step": 6,
+        "unit": "px",
+        "default": 24
+      },
+      {
+        "id": "section_color",
+        "type": "color",
+        "label": "t:sections.text.color"
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "t:sections.text_alignment.label",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "t:sections.alignment.left"
+          },
+          {
+            "value": "text-center",
+            "label": "t:sections.alignment.center"
+          },
+          {
+            "value": "text-right",
+            "label": "t:sections.alignment.right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "block_width",
+        "label": "t:sections.content_width.label",
+        "default": "9",
+        "options": [
+          {
+            "value": "4",
+            "label": "33%"
+          },
+          {
+            "value": "6",
+            "label": "50%"
+          },
+          {
+            "value": "8",
+            "label": "66%"
+          },
+          {
+            "value": "9",
+            "label": "75%"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "horizontal_content_alignment",
+        "label": "t:sections.horizontal_position.label",
+        "default": "center",
+        "options": [
+          {
+            "value": "left",
+            "label": "t:sections.alignment.left"
+          },
+          {
+            "value": "center",
+            "label": "t:sections.alignment.center"
+          },
+          {
+            "value": "right",
+            "label": "t:sections.alignment.right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "vertical_content_alignment",
+        "label": "t:sections.vertical_position.label",
+        "default": "middle",
+        "options": [
+          {
+            "value": "top",
+            "label": "t:sections.vertical_position.top"
+          },
+          {
+            "value": "middle",
+            "label": "t:sections.vertical_position.middle"
+          },
+          {
+            "value": "bottom",
+            "label": "t:sections.vertical_position.bottom"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "background_img",
+        "label": "t:sections.image.label",
+        "info": "t:sections.image.desktop.info"
+      },
+	  {
+       "type": "checkbox",
+       "id": "full_width",
+       "label": "t:sections.full_width.label",
+       "default": true
+      },
+      {
+        "type": "range",
+        "id": "padding",
+        "min": 5,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "t:sections.height.label",
+        "default": 20
+      },
+	  {
+        "type": "color",
+        "id": "background_img_overlay",
+        "label": "t:sections.overlay.label"
+      },
+      {
+        "type": "color_background",
+        "id": "background_img_overlay_gradient",
+        "label": "t:sections.overlay.gradient"
+      },
+      {
+        "type": "range",
+        "id": "background_img_overlay_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "t:sections.opacity.label",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "t:sections.options.label"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "t:sections.show_cart_notes.label",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_terms_enable",
+        "label": "t:sections.show_cart_terms.label",
+        "default": false
+      },
+      {
+        "type": "richtext",
+        "id": "cart_terms",
+        "label": "t:sections.terms.label",
+        "default": "<p>Add an agree to terms checkbox.  NOTE: Disable the Header 'cart dropdown checkout button'</p>"
+      },
+      {
+       "type": "checkbox",
+       "id": "remove_enable",
+       "label": "t:sections.show_remove.label",
+       "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "recently_viewed",
+        "label": "t:sections.show_recently_viewed.label",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "t:sections.section.name.content"
+      },
+      {
+        "id": "background",
+        "type": "color",
+        "label": "t:sections.section.settings.background_color.label"
+      },
+      {
+        "id": "background_gradient",
+        "type": "color_background",
+        "label": "t:sections.section.settings.background_gradient.label"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:sections.section.settings.mobile.content"
+      },
+      {
+        "id": "padding_top_mobile",
+        "type": "range",
+        "label": "t:sections.section.settings.top_pad.label",
+        "min": 0,
+        "max": 60,
+        "step": 10,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "id": "padding_bottom_mobile",
+        "type": "range",
+        "label": "t:sections.section.settings.bottom_pad.label",
+        "min": 0,
+        "max": 60,
+        "step": 10,
+        "unit": "px",
+        "default": 40
+      },
+      {
+        "id": "margin_bottom_mobile",
+        "type": "range",
+        "label": "t:sections.section.settings.bottom_margin.label",
+        "min": 0,
+        "max": 60,
+        "step": 10,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "paragraph",
+        "content": "t:sections.section.settings.desktop.content"
+      },
+      {
+        "id": "padding_top_desktop",
+        "type": "range",
+        "label": "t:sections.section.settings.top_pad.label",
+        "min": 0,
+        "max": 60,
+        "step": 10,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "id": "padding_bottom_desktop",
+        "type": "range",
+        "label": "t:sections.section.settings.bottom_pad.label",
+        "min": 0,
+        "max": 60,
+        "step": 10,
+        "unit": "px",
+        "default": 40
+      },
+      {
+        "id": "margin_bottom_desktop",
+        "type": "range",
+        "label": "t:sections.section.settings.bottom_margin.label",
+        "min": 0,
+        "max": 60,
+        "step": 10,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "id": "padding_border",
+        "type": "checkbox",
+        "label": "t:sections.section.settings.border.label",
+        "default": false
+      }
+    ],
+	"blocks": [
+	  {
+		"type": "text",
+		"name": "t:sections.show_cart_notes.attribute",
+		"settings": [
+		  {
+			"type": "text",
+			"id": "title",
+			"label": "t:sections.title.label",
+            "default": "PO Number"
+		  }
+		]
+	  }
+	]
+  }
+{% endschema %}

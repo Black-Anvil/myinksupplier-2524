@@ -1,0 +1,69 @@
+{% if enable_number == 'enable_1' or enable %}
+<div class="icon-text{% if pop_up and page != blank %} relative{% endif %}">
+
+  {%- liquid
+    if pop_up and page != blank
+      echo '<button data-micromodal-trigger="quick-modal" type="button" data-src="'
+      echo page.url
+      echo '" data-container="page-content" name="'
+      echo page.title | escape
+      echo '" class="tooltip" aria-label="'
+      echo page.title | escape
+      echo '">'
+    endif
+  -%}
+ 
+    <div class="table-cell{% if block_img != blank %} img{% endif %}"> 
+      {%- liquid
+        if block_img != blank
+          capture image_size
+            echo '60x'
+          endcapture
+          echo '<img src="'
+          echo block_img | img_url: image_size
+          echo '" srcset="'
+          echo block_img | img_url: image_size
+          echo ' 1x, '
+          echo block_img | img_url: image_size, scale: 2
+          echo ' 2x" alt="'
+          if block_img.alt != blank
+            echo block_img.alt | escape
+          else
+            echo block_img | split: '/' | last | replace: '-', ' ' | replace: '_', ' ' | split: '.' | first | capitalize
+          endif
+          echo '">'
+        else        
+          if icon_color == 'rgba(0,0,0,0)' or icon_color == ''
+            assign icon_color = settings.headline_font_color
+          else
+            assign icon_color = icon_color
+          endif
+          if icon_color_h == 'rgba(0,0,0,0)' or icon_color_h == ''
+            assign icon_color_h = settings.accent_color
+          else
+            assign icon_color_h = icon_color_h
+          endif
+          if text != blank
+            assign icon_class = ''
+          else
+            assign icon_class = 'no-pad'
+          endif
+          render 'icons', icon: icon, size: '26', icon_class: icon_class, color: icon_color, color_h: icon_color_h
+        endif
+      -%}
+    </div>
+  
+    {% if text != blank %}
+      <div class="table-cell text-left no-pad">
+        {{ text }}
+      </div>
+    {% endif %}
+  
+  {%- liquid
+    if pop_up and page != blank
+      echo '</button>'
+    endif
+  -%}
+
+</div>
+{% endif %}

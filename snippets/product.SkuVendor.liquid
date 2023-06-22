@@ -1,0 +1,28 @@
+{% if vendor_enable or sku_enable %}
+<p id="product-logistics-{{ section.id }}" class="product-logistics{% if divider %} form-blocks{% endif %}" {{ block.shopify_attributes }}>
+  {% if vendor_enable %}
+  <span class="vendor">
+    {%- liquid
+      assign product_vendor_handle = product.vendor | handle
+      if collections[product_vendor_handle].handle == product_vendor_handle
+        assign vendor_url = collections[product_vendor_handle].url
+      else
+        assign vendor_url = product.vendor | url_for_vendor
+      endif
+      echo product.vendor | link_to: vendor_url, product.vendor
+    -%}
+  </span>
+  {% endif %}
+  {% if sku_enable %}
+  {%- liquid
+    if vendor_enable and sku_enable
+      assign divider_2 = true
+    else
+      assign divider_2 = false
+    endif
+  -%}
+  {% if divider_2 %}<span class="separator separator_2{% unless product.selected_or_first_available_variant.sku != blank %} hidden{% endunless %}" aria-hidden="true"></span>{% endif %}
+  <span id="sku-{{ section.id }}" class="variant-sku"><span>{% if product.selected_or_first_available_variant.sku != blank %}{{ 'products.product.sku' | t }}</span> {{ product.selected_or_first_available_variant.sku }}{% endif %}</span>
+  {% endif %}  
+</p>
+{% endif %} 

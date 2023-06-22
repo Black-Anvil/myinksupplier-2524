@@ -1,0 +1,186 @@
+{%- liquid
+  capture img_height
+    if img_src.width < size
+      echo img_src.height
+    else
+      echo size | divided_by: img_src.aspect_ratio
+    endif
+  endcapture
+  assign img_height = img_height | round
+  capture img_width
+    if img_src.width < size
+      echo img_src.width
+    else
+      echo size
+    endif
+  endcapture
+  assign img_width = img_width | round
+  capture img_set
+    if img_src.width < 220
+      assign height = img_src.width | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url | append: ' ' | append: img_src.width | append: 'w ' | append: height | append: 'h,'
+    endif    
+    if size < 220
+      assign height = size | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: size | append: ' ' | append: size | append: 'w ' | append: height | append: 'h,'
+    endif    
+    if background or img_src.width >= 220 and size >= 220
+      assign height = 220 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 220 | append: ' 220w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 320 and size >= 320
+      assign height = 320 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 320 | append: ' 320w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 480 and size >= 480
+      assign height = 480 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 480 | append: ' 480w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 600 and size >= 600
+      assign height = 600 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 600 | append: ' 600w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 768 and size >= 768
+      assign height = 768 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 768 | append: ' 768w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 960 and size >= 960
+      assign height = 960 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 960 | append: ' 960w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 1024 and size >= 1024
+      assign height = 1024 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 1024 | append: ' 1024w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 1280 and size >= 1280
+      assign height = 1280 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 1280 | append: ' 1280w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 1600 and size >= 1600
+      assign height = 1600 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 1600 | append: ' 1600w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 1900 and size >= 1900
+      assign height = 1900 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 1900 | append: ' 1900w ' | append: height | append: 'h,'
+    endif
+    if background or img_src.width >= 2560 and size >= 2560
+      assign height = 2560 | divided_by: img_src.aspect_ratio | round
+      echo img_src | image_url: width: 2560 | append: ' 2560w ' | append: height | append: 'h,'
+    endif
+  endcapture
+  capture class
+    echo screen
+    unless nopad
+      echo 'nopad '
+    endunless
+    echo 'js '
+    unless lazyignore
+      echo 'lazyload '
+    endunless
+    if background or swatch
+      echo 'lazybackground '
+      echo position
+      echo ' '
+    endif
+    echo 'img-align '
+    if img_src.aspect_ratio > 1
+      echo 'landscape'
+    elsif img_src.aspect_ratio < 1
+      echo 'vertical'
+    else
+      echo 'square'
+    endif
+  endcapture
+  capture srcset
+    if datawidth == false
+      assign double_size = size | times: 2
+      echo img_src | image_url: width: size
+      echo ' 1x, '
+      assign retina = img_src | image_url: width: double_size
+      echo retina | replace: '.gif', '@2x.gif' | replace: '.jpg', '@2x.jpg' | replace: '.pjpg', '@2x.pjpg' | replace: '.png', '@2x.png'
+      echo ' 2x'
+    else
+      echo img_set
+    endif
+  endcapture
+  unless lazyignore
+    capture data_src
+      if background
+        echo img_src | image_url
+      else
+        if img_src.width < size
+          echo img_src | image_url
+        else
+          echo img_src | image_url: width: size
+        endif
+      endif
+    endcapture
+    capture data_source
+      echo img_src | image_url
+    endcapture
+  endunless
+  capture data_zoom
+    echo img_src | image_url: width: 1024
+  endcapture
+  assign alt = alt | escape
+  capture style
+    echo 'aspect-ratio:'
+    echo img_src.aspect_ratio
+    echo ';'
+    unless background
+      echo 'max-height:'
+      echo img_height
+      echo 'px;'
+      echo 'max-width:'
+      echo img_width
+      echo 'px;'
+      if swatch != true and img_align
+        if img_src.aspect_ratio < 1
+          echo 'height: 100%;width: auto;'
+        endif
+      endif    
+    endunless
+  endcapture
+  unless lazyignore
+    if section.settings.zoom_enable
+      echo img_src | image_url: width: size | image_tag: class: class, srcset: srcset, loading: 'lazy', data-src: data_src, data-source: data_source, data-aspectratio: img_src.aspect_ratio, data-zoom: data_zoom, width: img_width, height: img_height, alt: alt, style: style
+    else
+      echo img_src | image_url: width: size | image_tag: class: class, srcset: srcset, loading: 'lazy', data-src: data_src, data-source: data_source, data-aspectratio: img_src.aspect_ratio, width: img_width, height: img_height, alt: alt, style: style
+    endif
+  else
+    if section.settings.zoom_enable
+      echo img_src | image_url: width: size | image_tag: preload: true, class: class, srcset: srcset, data-aspectratio: img_src.aspect_ratio, data-zoom: data_zoom, width: img_width, height: img_height, alt: alt, style: style
+    else
+      echo img_src | image_url: width: size | image_tag: preload: true, class: class, srcset: srcset, data-aspectratio: img_src.aspect_ratio, width: img_width, height: img_height, alt: alt, style: style
+    endif
+  endunless  
+-%}
+
+{% unless lazyignore %}
+<noscript>
+  {%- liquid
+    capture class
+      echo screen
+      unless nopad
+        echo 'nopad '
+      endunless
+      echo 'no-js lazyload lazyloaded '
+      if background or swatch
+        echo 'lazybackground '
+        echo position
+        echo ' '
+      endif
+      echo 'img-align '
+      if img_src.aspect_ratio > 1
+        echo 'landscape'
+      elsif img_src.aspect_ratio < 1
+        echo 'vertical'
+      else
+        echo 'square'
+      endif
+    endcapture
+    echo img_src | image_url: width: size | image_tag: class: class, loading: 'lazy', srcset: srcset, data-aspectratio: img_src.aspect_ratio, width: img_width, height: img_height, alt: alt, style: style
+  -%}  
+</noscript>
+{% endunless %}

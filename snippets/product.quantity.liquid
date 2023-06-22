@@ -1,0 +1,9 @@
+<div class="{{ block_width }}clearfix">
+  <span class="quantity form">
+    <button type="button" class="btn qtybtn icon-minus ignore qtyminus_{{ section.id }} text-center {{ template }}-template" field="updates_{{ section.id }}" aria-label="{{ 'products.general.minus' | t | escape }}">{%- render 'icons.theme', icon: 'minus', size: 28 -%}</button>
+    <label for="updates_{{ section.id }}" class="visually-hidden">{{ 'products.general.quantity' | t }}</label>
+    <input name="quantity" type="number" inputmode="numeric" pattern="[0-9]*" value="{% unless variant.available %}0{% else %}1{% endunless %}" min="{% unless product.available %}0{% else %}1{% endunless %}" class="ignore quantity item-qty text-center" field="error_{{ section.id }}" id="updates_{{ section.id }}"{% if variant.inventory_management and variant.inventory_policy != 'continue' %} max="{{ variant.inventory_quantity }}"{% endif %} />                   
+    <button type="button" class="btn qtybtn icon-plus ignore qtyplus_{{ section.id }} text-center {{ template }}-template" field="updates_{{ section.id }}" aria-label="{{ 'products.general.plus' | t | escape }}">{%- render 'icons.theme', icon: 'plus', size: 28 -%}</button>       
+    <label class="stock error hidden" id="error_{{ section.id }}">.</label>
+  </span>
+</div>

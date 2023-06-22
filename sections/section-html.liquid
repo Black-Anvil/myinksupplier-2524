@@ -1,0 +1,123 @@
+<style>
+.features-wrapper {
+  background-color: {{ section.settings.background_color }};
+}
+  
+.features-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  padding:60px 0;
+  align-items: center;
+  max-width:1400px;
+  margin:0 auto;
+}
+
+.feature {
+  text-align: center;
+}
+
+.feature img {
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+}
+
+.feature h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color:white;
+}
+
+.feature span {
+  font-size: 16px;
+  color:white;
+}
+
+@media screen and (max-width: 768px) {
+  .features-section {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<div class="features-wrapper">
+<div class="features-section">
+  <div class="feature">
+    <img src="{{ section.settings.feature_1_image | img_url }}" alt="Feature 1">
+    <h3>{{ section.settings.feature_1_caption }}</h3>
+    <span>{{ section.settings.feature_1_description }}</span>
+  </div>
+  <div class="feature">
+    <img src="{{ section.settings.feature_2_image | img_url }}" alt="Feature 2">
+    <h3>{{ section.settings.feature_2_caption }}</h3>
+    <span>{{ section.settings.feature_2_description }}</span>
+  </div>
+  <div class="feature">
+    <img src="{{ section.settings.feature_3_image | img_url }}" alt="Feature 3">
+    <h3>{{ section.settings.feature_3_caption }}</h3>
+    <span>{{ section.settings.feature_3_description }}</span>
+  </div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "MyInkSupplier Features",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "feature_1_image",
+      "label": "Firt Icon Image"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_caption",
+      "label": "First Caption"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_description",
+      "label": "First Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_2_image",
+      "label": "Second Icon Image"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_caption",
+      "label": "Second Caption"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_description",
+      "label": "Second Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_3_image",
+      "label": "Third Icon Image"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_caption",
+      "label": "Third Caption"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_description",
+      "label": "Third Description"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ]
+}
+{% endschema %}

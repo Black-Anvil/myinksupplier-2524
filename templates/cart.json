@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "settings": {
+        "title_enable": true,
+        "title": "",
+        "title_h1": false,
+        "title_size": 36,
+        "sub_title": "",
+        "title_sub_size": 18,
+        "section_color": "rgba(0,0,0,0)",
+        "text_alignment": "text-center",
+        "block_width": "6",
+        "horizontal_content_alignment": "center",
+        "vertical_content_alignment": "middle",
+        "full_width": true,
+        "padding": 20,
+        "background_img_overlay": "rgba(0,0,0,0)",
+        "background_img_overlay_gradient": "",
+        "background_img_overlay_opacity": 0,
+        "cart_notes_enable": true,
+        "cart_terms_enable": false,
+        "cart_terms": "",
+        "remove_enable": true,
+        "recently_viewed": true,
+        "background": "rgba(0,0,0,0)",
+        "background_gradient": "",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 40,
+        "margin_bottom_mobile": 20,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40,
+        "margin_bottom_desktop": 40,
+        "padding_border": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
